@@ -24,7 +24,8 @@ return {
             "rustup", "run", "stable", "rust-analyzer"
           }
         },
-        clangd = {}
+        clangd = {},
+        gopls = {},
       }
     },
 
@@ -54,6 +55,11 @@ return {
       -- mappings
       vim.keymap.set("n", "gra", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "grr", ":lua vim.lsp.buf.rename()<CR>")
+      vim.keymap.set("n", "gdf", ":lua vim.lsp.buf.definition()<CR>")
+      vim.keymap.set("n", "grf", ":lua vim.lsp.buf.references()<CR>")
+      vim.keymap.set("n", "gdc", ":lua vim.lsp.buf.declaration()<CR>")
+      vim.keymap.set("n", "gdi", ":lua vim.lsp.buf.implementation()<CR>")
+      vim.keymap.set("n", "sh", ":lua vim.lsp.buf.signature_help()<CR>")
     end,
   }
 }

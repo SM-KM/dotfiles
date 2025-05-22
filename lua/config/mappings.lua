@@ -43,7 +43,14 @@ end)
 
 -- Vim fugitive
 map("n", "<leader>g", ":Git<CR>")
-map("n", "<leader>gc", ":Git commit<CR>")
+map("n", "<leader>gc", function()
+  local msg = vim.fn.input("Commit message: ")
+  if msg ~= "" then
+    vim.cmd("Git commit -m " .. vim.fn.shellescape(msg))
+  else
+    print("Commit aborted")
+  end
+end)
 
 -- Testing
 vim.keymap.set("n", "<leader>tf", ":PlenaryBustedFile %<CR>")
