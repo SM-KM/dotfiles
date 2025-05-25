@@ -19,12 +19,17 @@ return {
     opts = {
       servers = {
         lua_ls = {},
+        ts_ls = {},
         rust_analyzer = {
           cmd = {
             "rustup", "run", "stable", "rust-analyzer"
           }
         },
-        clangd = {}
+        clangd = {},
+        gopls = {
+          { "gopls" },
+          filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        },
       }
     },
 
@@ -54,6 +59,7 @@ return {
       -- mappings
       vim.keymap.set("n", "gra", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "grr", ":lua vim.lsp.buf.rename()<CR>")
+      vim.keymap.set("n", "gd", ":lua vim.lsp.buf.declaration()<CR>")
     end,
   }
 }
