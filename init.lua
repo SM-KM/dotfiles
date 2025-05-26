@@ -17,3 +17,23 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.opt.relativenumber = false
   end,
 })
+
+vim.cmd [[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NonText guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight EndOfBuffer guibg=NONE ctermbg=NONE
+]]
+
+vim.cmd [[
+  highlight TelescopeNormal guibg=NONE ctermbg=NONE
+  highlight TelescopeBorder guibg=NONE ctermbg=NONE
+  highlight TelescopePromptNormal guibg=NONE ctermbg=NONE
+  highlight TelescopePromptBorder guibg=NONE ctermbg=NONE
+  highlight TelescopePromptTitle guibg=NONE ctermbg=NONE
+  highlight TelescopePreviewTitle guibg=NONE ctermbg=NONE
+  highlight TelescopeResultsTitle guibg=NONE ctermbg=NONE
+]]
+
+vim.api.nvim_set_hl(0, "QuickFixLine", { bg = "NONE", ctermbg = "NONE" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
