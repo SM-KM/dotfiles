@@ -1,0 +1,16 @@
+return {
+  {
+    "rest-nvim/rest.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      opts = function(_, opts)
+        opts.ensure_installed = opts.ensure_installed or {}
+        table.insert(opts.ensure_installed, "http")
+      end,
+    },
+    config = function()
+      vim.keymap.set("n", "<leader>rq", ":Rest open<CR>")
+      vim.keymap.set("n", "<leader>rn", ":Rest run<CR>")
+    end
+  }
+}

@@ -1,3 +1,4 @@
+---@diagnostic disable: need-check-nil
 local map = vim.keymap.set
 
 map("n", "<space><space>x", "<cmd>source %<CR>")
@@ -8,7 +9,7 @@ map("v", "K", ":m '<-2<CR>gv=gv")
 map("n", "<leader>ar", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- oil
-map("n", "-", "<cmd>Oil<CR>")
+-- map("n", "-", "<cmd>Oil<CR>")
 
 -- windows
 
@@ -41,16 +42,36 @@ end)
 --   vim.fn.chansend(job_id, { "echo 'hi'\r\n" })
 -- end)
 
--- Vim fugitive
-map("n", "<leader>g", ":Git<CR>")
-map("n", "<leader>gc", function()
-  local msg = vim.fn.input("Commit message: ")
-  if msg ~= "" then
-    vim.cmd("Git commit -m " .. vim.fn.shellescape(msg))
-  else
-    print("Commit aborted")
-  end
-end)
-
 -- Testing
 vim.keymap.set("n", "<leader>tf", ":PlenaryBustedFile %<CR>")
+
+-- Tabs
+map("n", "cn", ":cnext<CR>")
+map("n", "cp", ":cprev<CR>")
+map("n", "<Tab>", ":tabnext<CR>", { noremap = true })
+map("n", "<S-Tab>", ":tabprevious<CR>", { noremap = true })
+
+map("n", "<leader>tn", ":tabnew<CR>", { noremap = true })
+map("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
+
+-- Leet
+map("n", "<leader>c", ":Leet console<CR>", { noremap = true })
+map("n", "<leader>s", ":Leet submit<CR>", { noremap = true })
+map("n", "<leader>r", ":Leet run<CR>", { noremap = true })
+map("n", "<leader>t", ":Leet list<CR>", { noremap = true })
+print("show")
+
+-- Comment
+map("n", "<leader>tq", ":TodoQuickFix<CR>", { noremap = true })
+
+-- diagnostics
+map('n', '<M-d>', function()
+  local diagnostics = vim.diagnostic.get(0)
+  local converted = vim.diagnostic.toqflist(diagnostics)
+  vim.fn.setqflist(converted)
+end)
+
+map('n', '<M-j>', ":cnext<CR>")
+map('n', '<M-k>', ":cprev<CR>")
+map('n', '<M-c>', ":cclose<CR>")
+map('n', '<M-m>', ":copen<CR>")

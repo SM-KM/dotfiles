@@ -9,7 +9,8 @@ return {
     config = function()
       require('telescope').setup {
         pickers = {
-          find_files = { theme = "ivy" }
+          find_files = { theme = "ivy" },
+          live_grep = { theme = "ivy" }
         },
         extensions = {
           fzf = {}
@@ -19,7 +20,17 @@ return {
       -- require('telescope').load_extension('fzf')
 
       vim.keymap.set('n', "<space>fh", require('telescope.builtin').help_tags)
-      vim.keymap.set('n', "<space>fd", require('telescope.builtin').find_files)
+      vim.keymap.set('n', '<space>fd', function()
+        require('telescope.builtin').find_files({
+          hidden = true,
+        })
+      end)
+
+      vim.keymap.set('n', '<space>fl', function()
+        require('telescope.builtin').live_grep({
+        })
+      end, { desc = "Live grep (including hidden)" })
+
       vim.keymap.set('n', "<space>en", function()
         local opts = require('telescope.themes').get_ivy({
           cwd = vim.fn.stdpath("config")

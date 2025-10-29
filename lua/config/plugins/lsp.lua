@@ -25,19 +25,36 @@ return {
             "rustup", "run", "stable", "rust-analyzer"
           }
         },
-        clangd = {},
+        clangd = {
+          filetypes  = { "c", "cpp" },
+          cmd = { "clangd", "--log=verbose" },
+          init_options = {
+            fallback_flags = { '-std=c++20' }
+          }
+        },
         gopls = {
           { "gopls" },
           filetypes = { "go", "gomod", "gowork", "gotmpl" },
         },
+        omnisharp = {
+          cmd = { "/usr/bin/omnisharp" },
+          filetypes = { "cs" }
+        },
+        sqlls = {
+          cmd = { "sql-language-server", "up", "--method", "stdio" },
+          filetypes = { "sql", "mysql" }
+        },
+        qmlls = {},
+        cssls = {},
       }
     },
 
     config = function(_, opts)
-      local lspconfig = require('lspconfig')
+      local lspconfig = vim.lsp.config
       for server, config in pairs(opts.servers) do
         config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+        lspconfig[server] = config
+        vim.lsp.enable(server)
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -59,12 +76,19 @@ return {
                 vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
               end
             })
+
+            vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+              pattern = "*.cs",
+              callback = function()
+                vim.bo.filetype = "cs"
+              end
+            })
           end
         end,
       })
 
       -- mappings
-      vim.keymap.set("n", "gra", ":lua vim.lsp.buf.code_action()<CR>")
+      vim.keymap.set("n", "ra", ":lua vim.lsp.buf.code_action()<CR>")
       vim.keymap.set("n", "grr", ":lua vim.lsp.buf.rename()<CR>")
       vim.keymap.set("n", "gdf", ":lua vim.lsp.buf.definition()<CR>")
       vim.keymap.set("n", "grf", ":lua vim.lsp.buf.references()<CR>")

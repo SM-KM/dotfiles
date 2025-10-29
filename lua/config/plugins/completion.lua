@@ -1,8 +1,10 @@
 return {
   {
     'saghen/blink.cmp',
-    -- optional: provides snippets for the snippet source
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = {
+      'rafamadriz/friendly-snippets',
+      "kristijanhusak/vim-dadbod-completion",
+    },
     -- use a release tag to download pre-built binaries
     version = '1.*',
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -11,7 +13,6 @@ return {
     -- build = 'nix run .#build-plugin',
 
     ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
       -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -25,13 +26,27 @@ return {
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = 'enter' },
+      keymap = {
+        preset = 'enter',
+      },
 
       appearance = {
         nerd_font_variant = 'mono'
       },
 
       signature = { enabled = true },
+      config = function(_, opts)
+        require('blink.cmp').setup(opts)
+
+        -- Set specific source for SQL files
+        local cmp = require('cmp')
+        cmp.setup.filetype({ 'sql' }, {
+          sources = {
+            { name = 'vim-dadbod-completion' },
+            { name = 'buffer' },
+          }
+        })
+      end,
     },
   }
 }
