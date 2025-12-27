@@ -20,14 +20,18 @@ return {
       servers = {
         lua_ls = {},
         ts_ls = {},
+        qmlls = {
+          cmd = { "qmlls" },
+          filetypes = { "qml" }
+        },
         rust_analyzer = {
           cmd = {
             "rustup", "run", "stable", "rust-analyzer"
           }
         },
         clangd = {
-          filetypes  = { "c", "cpp" },
-          cmd = { "clangd", "--log=verbose" },
+          filetypes    = { "c", "cpp" },
+          cmd          = { "clangd", "--log=verbose" },
           init_options = {
             fallback_flags = { '-std=c++20' }
           }
@@ -44,8 +48,9 @@ return {
           cmd = { "sql-language-server", "up", "--method", "stdio" },
           filetypes = { "sql", "mysql" }
         },
-        qmlls = {},
         cssls = {},
+        jdtls = {
+        },
       }
     },
 

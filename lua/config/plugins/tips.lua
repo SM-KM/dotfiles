@@ -1,14 +1,14 @@
-return {{
+return { {
   "saxon1964/neovim-tips",
   version = "*", -- Only update on tagged releases
   dependencies = {
     "MunifTanjim/nui.nvim",
   },
   opts = {
-    user_file = vim.fn.stdpath("config") .. "/neovim_tips/user_tips.md",
+    -- user_file = vim.fn.stdpath("config") .. "/neovim_tips/user_tips.md",
     user_tip_prefix = "[User] ",
     warn_on_conflicts = true,
-    daily_tip = 1,
+    daily_tip = 0,
     bookmark_symbol = "* ",
   },
   init = function()
@@ -20,4 +20,4 @@ return {{
     map("n", "<leader>ntr", ":NeovimTipsRandom<CR>", { desc = "Show random tip", noremap = true, silent = true })
     map("n", "<leader>ntp", ":NeovimTipsPdf<CR>", { desc = "Open Neovim tips PDF", noremap = true, silent = true })
   end
-}}
+} }

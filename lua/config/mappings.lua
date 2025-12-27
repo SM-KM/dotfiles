@@ -59,10 +59,6 @@ map("n", "<leader>c", ":Leet console<CR>", { noremap = true })
 map("n", "<leader>s", ":Leet submit<CR>", { noremap = true })
 map("n", "<leader>r", ":Leet run<CR>", { noremap = true })
 map("n", "<leader>t", ":Leet list<CR>", { noremap = true })
-print("show")
-
--- Comment
-map("n", "<leader>tq", ":TodoQuickFix<CR>", { noremap = true })
 
 -- diagnostics
 map('n', '<M-d>', function()
